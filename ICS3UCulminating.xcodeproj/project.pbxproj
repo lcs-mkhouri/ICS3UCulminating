@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		D0ADC0322FCDDC5C00EB3DDE /* ICS3UCulminatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC0312FCDDC5C00EB3DDE /* ICS3UCulminatingApp.swift */; };
 		D0ADC0342FCDDC5C00EB3DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0ADC0332FCDDC5C00EB3DDE /* Assets.xcassets */; };
-		D0ADC0372FCDDC5C00EB3DDE /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC0362FCDDC5C00EB3DDE /* House.swift */; };
-		D0ADC03A2FCDDC5C00EB3DDE /* HouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC0392FCDDC5C00EB3DDE /* HouseListViewModel.swift */; };
-		D0ADC03D2FCDDC5C00EB3DDE /* HousesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC03C2FCDDC5C00EB3DDE /* HousesListView.swift */; };
-		D0ADC03F2FCDDC5C00EB3DDE /* HouseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC03E2FCDDC5C00EB3DDE /* HouseItemView.swift */; };
+		D0ADC0372FCDDC5C00EB3DDE /* hanoiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC0362FCDDC5C00EB3DDE /* hanoiModel.swift */; };
+		D0ADC03A2FCDDC5C00EB3DDE /* hanoiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC0392FCDDC5C00EB3DDE /* hanoiViewModel.swift */; };
+		D0ADC03D2FCDDC5C00EB3DDE /* contentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC03C2FCDDC5C00EB3DDE /* contentView.swift */; };
+		D0ADC03F2FCDDC5C00EB3DDE /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADC03E2FCDDC5C00EB3DDE /* View.swift */; };
 		D0ADC0412FCDDC5C00EB3DDE /* RELEASE.md in Resources */ = {isa = PBXBuildFile; fileRef = D0ADC0402FCDDC5C00EB3DDE /* RELEASE.md */; };
 /* End PBXBuildFile section */
 
@@ -20,10 +20,10 @@
 		D0ADC02E2FCDDC5C00EB3DDE /* ICS3UCulminating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICS3UCulminating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0ADC0312FCDDC5C00EB3DDE /* ICS3UCulminatingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS3UCulminatingApp.swift; sourceTree = "<group>"; };
 		D0ADC0332FCDDC5C00EB3DDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D0ADC0362FCDDC5C00EB3DDE /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
-		D0ADC0392FCDDC5C00EB3DDE /* HouseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListViewModel.swift; sourceTree = "<group>"; };
-		D0ADC03C2FCDDC5C00EB3DDE /* HousesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesListView.swift; sourceTree = "<group>"; };
-		D0ADC03E2FCDDC5C00EB3DDE /* HouseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseItemView.swift; sourceTree = "<group>"; };
+		D0ADC0362FCDDC5C00EB3DDE /* hanoiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hanoiModel.swift; sourceTree = "<group>"; };
+		D0ADC0392FCDDC5C00EB3DDE /* hanoiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hanoiViewModel.swift; sourceTree = "<group>"; };
+		D0ADC03C2FCDDC5C00EB3DDE /* contentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contentView.swift; sourceTree = "<group>"; };
+		D0ADC03E2FCDDC5C00EB3DDE /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		D0ADC0402FCDDC5C00EB3DDE /* RELEASE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RELEASE.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +70,7 @@
 		D0ADC0352FCDDC5C00EB3DDE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D0ADC0362FCDDC5C00EB3DDE /* House.swift */,
+				D0ADC0362FCDDC5C00EB3DDE /* hanoiModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -78,7 +78,7 @@
 		D0ADC0382FCDDC5C00EB3DDE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D0ADC0392FCDDC5C00EB3DDE /* HouseListViewModel.swift */,
+				D0ADC0392FCDDC5C00EB3DDE /* hanoiViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -86,8 +86,8 @@
 		D0ADC03B2FCDDC5C00EB3DDE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D0ADC03C2FCDDC5C00EB3DDE /* HousesListView.swift */,
-				D0ADC03E2FCDDC5C00EB3DDE /* HouseItemView.swift */,
+				D0ADC03C2FCDDC5C00EB3DDE /* contentView.swift */,
+				D0ADC03E2FCDDC5C00EB3DDE /* View.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,10 +165,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0ADC03F2FCDDC5C00EB3DDE /* HouseItemView.swift in Sources */,
-				D0ADC0372FCDDC5C00EB3DDE /* House.swift in Sources */,
-				D0ADC03D2FCDDC5C00EB3DDE /* HousesListView.swift in Sources */,
-				D0ADC03A2FCDDC5C00EB3DDE /* HouseListViewModel.swift in Sources */,
+				D0ADC03F2FCDDC5C00EB3DDE /* View.swift in Sources */,
+				D0ADC0372FCDDC5C00EB3DDE /* hanoiModel.swift in Sources */,
+				D0ADC03D2FCDDC5C00EB3DDE /* contentView.swift in Sources */,
+				D0ADC03A2FCDDC5C00EB3DDE /* hanoiViewModel.swift in Sources */,
 				D0ADC0322FCDDC5C00EB3DDE /* ICS3UCulminatingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
