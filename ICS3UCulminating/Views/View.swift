@@ -1,6 +1,6 @@
 import SwiftUI
 
-// STEP 3: Visual Components
+// STEP 3 & 6: Visual Components
 
 // MARK: - Disk View
 // Represents a single disk on a tower.
@@ -21,6 +21,7 @@ struct DiskView: View {
                     .foregroundColor(.white)
                     .bold()
             )
+            .shadow(radius: 1)
     }
     
     // MARK: - Functions
@@ -38,6 +39,8 @@ struct TowerView: View {
     // MARK: - Stored properties
     let disks: [Disk]
     let index: Int
+    let isSelected: Bool // New: Is this tower the one the user tapped first?
+    let action: () -> Void // New: What to do when this tower is tapped?
     
     // MARK: - Computed properties
     var body: some View {
@@ -59,10 +62,21 @@ struct TowerView: View {
                 .padding(.bottom, 2)
             }
             .frame(width: 120, height: 160)
+            // Visual feedback for selection
+            .background(isSelected ? Color.blue.opacity(0.1) : Color.clear)
+            .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+            )
+            .onTapGesture {
+                action() // Call the selection logic in the ViewModel
+            }
             
             Text("Tower \(index + 1)")
                 .font(.caption)
                 .bold()
+                .padding(.top, 4)
         }
     }
     
