@@ -11,22 +11,22 @@ struct DiskView: View {
     
     // MARK: - Computed properties
     var body: some View {
-        RoundedRectangle(cornerRadius: 4)
-            .fill(self.color(for: disk.size))
+        RoundedRectangle(cornerRadius: 6)
+            .fill(self.color(for: disk.size).gradient) // Added gradient for depth
             // The width grows with the size of the disk
-            .frame(width: CGFloat(disk.size) * 30, height: 18)
-            .overlay(
+            .frame(width: CGFloat(disk.size) * 35, height: 22)
+            .overlay {
                 Text("\(disk.size)")
-                    .font(.caption2)
-                    .foregroundColor(.white)
+                    .font(.caption)
+                    .foregroundStyle(.white)
                     .bold()
-            )
-            .shadow(radius: 1)
+            }
+            .shadow(color: .black.opacity(0.15), radius: 2, x: 0, y: 1)
     }
     
     // MARK: - Functions
     func color(for size: Int) -> Color {
-        let colors: [Color] = [.red, .orange, .blue, .green, .purple]
+        let colors: [Color] = [.red, .orange, .blue, .green, .purple, .pink]
         let index: Int = (size - 1) % colors.count
         return colors[index]
     }
@@ -39,49 +39,57 @@ struct TowerView: View {
     // MARK: - Stored properties
     let disks: [Disk]
     let index: Int
-    let isSelected: Bool // New: Is this tower the one the user tapped first?
-    let action: () -> Void // New: What to do when this tower is tapped?
+    let isSelected: Bool
+    let action: () -> Void
     
     // MARK: - Computed properties
     var body: some View {
         VStack {
             ZStack(alignment: .bottom) {
                 // The Rod (the background pole)
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: 6, height: 150)
+                Capsule()
+                    .fill(.secondary.opacity(0.2))
+                    .frame(width: 8, height: 160)
                 
                 // The stack of disks
                 VStack(spacing: 2) {
                     // We display disks from top down.
-                    // Our array has the top disk at the end, so we reverse it.
                     ForEach(self.reverse(disks)) { disk in
                         DiskView(disk: disk)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .top).combined(with: .opacity),
+                                removal: .move(edge: .top).combined(with: .opacity)
+                            ))
                     }
                 }
-                .padding(.bottom, 2)
+                .padding(.bottom, 4)
             }
-            .frame(width: 120, height: 160)
-            // Visual feedback for selection
-            .background(isSelected ? Color.blue.opacity(0.1) : Color.clear)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
+            .frame(width: 140, height: 180)
+            .background {
+                // Background shape with selection feedback
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(isSelected ? Color.blue.opacity(0.1) : Color.primary.opacity(0.03))
+            }
+            .clipShape(.rect(cornerRadius: 16)) // Modern clipShape API
+            .overlay {
+                // Selection border
+                RoundedRectangle(cornerRadius: 16)
                     .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
-            )
+            }
+            .contentShape(Rectangle()) // Ensures the whole area is tappable
             .onTapGesture {
-                action() // Call the selection logic in the ViewModel
+                action()
             }
             
             Text("Tower \(index + 1)")
-                .font(.caption)
+                .font(.subheadline)
                 .bold()
+                .foregroundStyle(isSelected ? .blue : .primary)
                 .padding(.top, 4)
         }
     }
     
     // MARK: - Functions
-    // Explicitly reversing the array to follow coding guidelines (no higher-order functions)
     func reverse(_ input: [Disk]) -> [Disk] {
         var result: [Disk] = []
         for i in (0..<input.count).reversed() {

@@ -66,7 +66,7 @@ class HanoiViewModel {
             // If user taps the same tower, we just deselect it.
             if fromIndex == index {
                 selectedTowerIndex = nil
-                message = "Tower \(index + 1) deselected."
+                message = "Tower\(index + 1) deselected."
             } else {
                 // Try to move from the first tower tapped to this one.
                 moveDisk(from: fromIndex, to: index)
@@ -111,6 +111,7 @@ class HanoiViewModel {
             towers[fromIndex].removeLast()
             towers[toIndex].append(diskToMove)
             moveCount += 1
+            
             message = "Moved to Tower \(toIndex + 1)."
             
             checkWinCondition()

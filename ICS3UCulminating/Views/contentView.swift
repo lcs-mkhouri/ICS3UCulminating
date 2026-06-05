@@ -23,88 +23,90 @@ struct contentView: View {
         VStack(spacing: 30) {
             
             // 1. Title Section
-            VStack(spacing: 5) {
+            VStack(spacing: 8) {
                 Text("Tower of Hanoi")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
                 
-                Text("Strategy Puzzle")
+                Text("Solve the ancient puzzle")
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             .padding(.top)
             
             // 2. The Towers (The Game Board)
-            HStack(alignment: .bottom, spacing: 10) {
+            HStack(alignment: .bottom, spacing: 12) {
                 ForEach(0..<3) { index in
                     TowerView(
                         disks: viewModel.towers[index],
                         index: index,
                         isSelected: viewModel.selectedTowerIndex == index,
                         action: {
-                            viewModel.selectTower(at: index)
+                            withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                                viewModel.selectTower(at: index)
+                            }
                         }
                     )
                 }
             }
             .padding()
-            .background(Color(.systemGray6))
-            .cornerRadius(20)
+            .background(.regularMaterial) // Glassmorphism effect
+            .clipShape(.rect(cornerRadius: 24))
+            .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 5)
             
             // 3. Status Section
             VStack(spacing: 15) {
-                // Game Message (e.g., "Invalid Move", "Victory!")
+                // Game Message
                 Text(viewModel.message)
                     .font(.headline)
                     .multilineTextAlignment(.center)
-                    .frame(height: 50)
+                    .frame(height: 60)
                     .padding(.horizontal)
+                    .foregroundStyle(viewModel.message.contains("Victory") ? .green : .primary)
                 
                 // Move Counter
-                HStack {
-                    Image(systemName: "arrow.left.and.right.circle")
-                    Text("Moves: \(viewModel.moveCount)")
-                        .bold()
-                }
-                .font(.title3)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 20)
-                .background(Color.blue.opacity(0.1))
-                .cornerRadius(10)
+                Label("Moves: \(viewModel.moveCount)", systemImage: "arrow.left.and.right.circle")
+                    .font(.title3.bold())
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 24)
+                    .background(Color.blue.opacity(0.1))
+                    .clipShape(.capsule)
             }
             
             // 4. Game Controls
-            HStack(spacing: 20) {
+            HStack(spacing: 15) {
                 // Reset Button
-                Button(action: {
-                    viewModel.resetGame()
+                Button(role: .destructive, action: {
+                    withAnimation {
+                        viewModel.resetGame()
+                    }
                 }) {
                     Label("Reset", systemImage: "arrow.clockwise")
                         .font(.headline)
                         .padding()
-                        .frame(minWidth: 120)
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                        .frame(maxWidth: .infinity)
+                        .background(.red.gradient)
+                        .foregroundStyle(.white)
+                        .clipShape(.rect(cornerRadius: 14))
                 }
                 
                 // Difficulty Button
                 Button(action: {
-                    // Cycle disks between 3, 4, and 5
-                    var nextCount: Int = viewModel.diskCount + 1
-                    if nextCount > 5 {
-                        nextCount = 3
+                    withAnimation {
+                        var nextCount: Int = viewModel.diskCount + 1
+                        if nextCount > 5 {
+                            nextCount = 3
+                        }
+                        viewModel.diskCount = nextCount
+                        viewModel.resetGame()
                     }
-                    viewModel.diskCount = nextCount
-                    viewModel.resetGame()
                 }) {
                     Label("\(viewModel.diskCount) Disks", systemImage: "list.number")
                         .font(.headline)
                         .padding()
-                        .frame(minWidth: 120)
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                        .frame(maxWidth: .infinity)
+                        .background(.orange.gradient)
+                        .foregroundStyle(.white)
+                        .clipShape(.rect(cornerRadius: 14))
                 }
             }
             
