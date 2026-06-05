@@ -81,8 +81,8 @@ struct TowerView: View {
                 action()
             }
             
-            Text("Tower \(index + 1)")
-                .font(.subheadline)
+            Text("T \(index + 1)")
+                .font(.footnote)
                 .bold()
                 .foregroundStyle(isSelected ? .blue : .primary)
                 .padding(.top, 4)
