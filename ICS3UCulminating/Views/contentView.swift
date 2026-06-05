@@ -17,9 +17,32 @@ struct contentView: View {
     // The @State property wrapper works with @Observable classes to keep the UI in sync.
     @State var viewModel: HanoiViewModel = HanoiViewModel(numberOfDisks: 3)
     
+    // Controls the visibility of the starting splash screen
+    @State var showSplash: Bool = true
+    
     // MARK: - Computed properties
     
     var body: some View {
+        ZStack {
+            if showSplash {
+                // The Starting Page
+                LaunchView {
+                    self.showSplash = false
+                }
+                .transition(.asymmetric(
+                    insertion: .identity,
+                    removal: .move(edge: .top).combined(with: .opacity)
+                ))
+            } else {
+                // Main Game Content
+                gameContent
+                    .transition(.opacity)
+            }
+        }
+    }
+    
+    // Extracted game content to keep the body clean
+    var gameContent: some View {
         VStack(spacing: 30) {
             
             // 1. Title Section
@@ -49,13 +72,12 @@ struct contentView: View {
                 }
             }
             .padding()
-            .background(.regularMaterial) // Glassmorphism effect
+            .background(.regularMaterial)
             .clipShape(.rect(cornerRadius: 24))
             .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 5)
             
             // 3. Status Section
             VStack(spacing: 15) {
-                // Game Message
                 Text(viewModel.message)
                     .font(.headline)
                     .multilineTextAlignment(.center)
@@ -63,7 +85,6 @@ struct contentView: View {
                     .padding(.horizontal)
                     .foregroundStyle(viewModel.message.contains("Victory") ? .green : .primary)
                 
-                // Move Counter
                 Label("Moves: \(viewModel.moveCount)", systemImage: "arrow.left.and.right.circle")
                     .font(.title3.bold())
                     .padding(.vertical, 10)
