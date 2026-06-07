@@ -31,6 +31,9 @@ class HanoiViewModel {
     // Message to display to the user.
     var message: String = "Move all disks to the third tower."
     
+    // NEW: Store a list of previous game results.
+    var history: [GameResult] = []
+    
     // MARK: - Initializer
     
     init(numberOfDisks: Int = 3) {
@@ -122,6 +125,10 @@ class HanoiViewModel {
         // You win if all disks are on the third tower (index 2).
         if towers[2].count == diskCount {
             message = "Victory! You won in \(moveCount) moves."
+            
+            // NEW: Save this game to the history list
+            let result: GameResult = GameResult(diskCount: diskCount, moveCount: moveCount)
+            self.history.append(result)
         }
     }
 }

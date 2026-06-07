@@ -20,6 +20,9 @@ struct contentView: View {
     // Controls the visibility of the starting splash screen
     @State var showSplash: Bool = true
     
+    // Controls the visibility of the history page
+    @State var showHistory: Bool = false
+    
     // MARK: - Computed properties
     
     var body: some View {
@@ -38,6 +41,10 @@ struct contentView: View {
                 gameContent
                     .transition(.opacity)
             }
+        }
+        // Presents the history as a separate page
+        .sheet(isPresented: $showHistory) {
+            HistoryView(history: viewModel.history)
         }
     }
     
@@ -94,38 +101,53 @@ struct contentView: View {
             }
             
             // 4. Game Controls
-            HStack(spacing: 15) {
-                // Reset Button
-                Button(role: .destructive, action: {
-                    withAnimation {
-                        viewModel.resetGame()
+            VStack(spacing: 15) {
+                HStack(spacing: 15) {
+                    // Reset Button
+                    Button(role: .destructive, action: {
+                        withAnimation {
+                            viewModel.resetGame()
+                        }
+                    }) {
+                        Label("Reset", systemImage: "arrow.clockwise")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(.red.gradient)
+                            .foregroundStyle(.white)
+                            .clipShape(.rect(cornerRadius: 14))
                     }
-                }) {
-                    Label("Reset", systemImage: "arrow.clockwise")
-                        .font(.headline)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(.red.gradient)
-                        .foregroundStyle(.white)
-                        .clipShape(.rect(cornerRadius: 14))
+                    
+                    // Difficulty Button
+                    Button(action: {
+                        withAnimation {
+                            var nextCount: Int = viewModel.diskCount + 1
+                            if nextCount > 5 {
+                                nextCount = 3
+                            }
+                            viewModel.diskCount = nextCount
+                            viewModel.resetGame()
+                        }
+                    }) {
+                        Label("\(viewModel.diskCount) Disks", systemImage: "list.number")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(.orange.gradient)
+                            .foregroundStyle(.white)
+                            .clipShape(.rect(cornerRadius: 14))
+                    }
                 }
                 
-                // Difficulty Button
+                // NEW: Button to open History Page
                 Button(action: {
-                    withAnimation {
-                        var nextCount: Int = viewModel.diskCount + 1
-                        if nextCount > 5 {
-                            nextCount = 3
-                        }
-                        viewModel.diskCount = nextCount
-                        viewModel.resetGame()
-                    }
+                    showHistory = true
                 }) {
-                    Label("\(viewModel.diskCount) Disks", systemImage: "list.number")
+                    Label("View History", systemImage: "clock.arrow.circlepath")
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(.orange.gradient)
+                        .background(.blue.gradient)
                         .foregroundStyle(.white)
                         .clipShape(.rect(cornerRadius: 14))
                 }
