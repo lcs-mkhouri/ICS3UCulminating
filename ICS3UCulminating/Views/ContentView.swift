@@ -10,7 +10,7 @@ import SwiftUI
 // STEP 4 & 6: Assembling the Board
 // This view brings together the ViewModel and the visual components.
 
-struct contentView: View {
+struct ContentView: View {
     
     // MARK: - Stored properties
     
@@ -160,5 +160,5 @@ struct contentView: View {
 }
 
 #Preview {
-    contentView()
+    ContentView()
 }

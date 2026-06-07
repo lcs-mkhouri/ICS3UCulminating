@@ -1,39 +1,8 @@
 import SwiftUI
 
-// STEP 3 & 6: Visual Components
-
-// MARK: - Disk View
-// Represents a single disk on a tower.
-struct DiskView: View {
-    
-    // MARK: - Stored properties
-    let disk: Disk
-    
-    // MARK: - Computed properties
-    var body: some View {
-        RoundedRectangle(cornerRadius: 6)
-            .fill(self.color(for: disk.size).gradient) // Added gradient for depth
-            // The width grows with the size of the disk
-            .frame(width: CGFloat(disk.size) * 35, height: 22)
-            .overlay {
-                Text("\(disk.size)")
-                    .font(.caption)
-                    .foregroundStyle(.white)
-                    .bold()
-            }
-            .shadow(color: .black.opacity(0.15), radius: 2, x: 0, y: 1)
-    }
-    
-    // MARK: - Functions
-    func color(for size: Int) -> Color {
-        let colors: [Color] = [.red, .orange, .blue, .green, .purple, .pink]
-        let index: Int = (size - 1) % colors.count
-        return colors[index]
-    }
-}
-
 // MARK: - Tower View
 // Represents a rod and the stack of disks on it.
+
 struct TowerView: View {
     
     // MARK: - Stored properties
@@ -70,7 +39,7 @@ struct TowerView: View {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(isSelected ? Color.blue.opacity(0.1) : Color.primary.opacity(0.03))
             }
-            .clipShape(.rect(cornerRadius: 16)) // Modern clipShape API
+            .clipShape(.rect(cornerRadius: 16))
             .overlay {
                 // Selection border
                 RoundedRectangle(cornerRadius: 16)
@@ -97,4 +66,8 @@ struct TowerView: View {
         }
         return result
     }
+}
+
+#Preview {
+    TowerView(disks: [Disk(id: 1, size: 3)], index: 0, isSelected: false, action: {})
 }

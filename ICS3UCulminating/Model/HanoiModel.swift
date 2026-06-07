@@ -1,5 +1,5 @@
 //
-//  hanoiModel.swift
+//  HanoiModel.swift
 //  ICS3UCulminating
 //
 //  Created by Michel Khouri on 2026-06-01.
@@ -16,8 +16,9 @@ struct Disk: Identifiable {
 
 // NEW: Define the GameResult model
 // This stores the results of a completed game.
-struct GameResult: Identifiable {
-    let id: UUID = UUID()
+// By adding 'Codable', we allow this data to be saved as JSON.
+struct GameResult: Identifiable, Codable {
+    var id: UUID = UUID()
     let diskCount: Int
     let moveCount: Int
 }
